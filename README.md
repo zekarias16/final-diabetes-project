@@ -17,7 +17,11 @@ This project analyzes the Pima Indians Diabetes Dataset to explore relationships
 ## How to Generate the Report
 
 To generate the final report:
+Before generating the report, restore the required R packages using:
 
+```bash
+make install
+```
 1. Open a terminal and navigate to the project directory.
 2. Run the following command:
   ```bash
