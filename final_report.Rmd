@@ -1,0 +1,90 @@
+---
+title: "Diabetes Data Analysis"
+author: "Zekarias Mengiste"
+date: "2025-02-21"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(kableExtra)
+```
+## Introduction
+
+This analysis explores a publicly available diabetes dataset from Kaggle, containing demographic and medical features such as glucose levels, blood pressure, BMI, and insulin levels. The primary objective is to summarize key numerical variables: Glucose level, BMI, Age, and Pregnancies.
+Loading the Data
+
+```{r}
+# Load the dataset
+diabetes <- read.csv("data/diabetes.csv")
+
+# Display first few rows
+head(diabetes)
+```
+
+## Summary of Descriptive Statistics
+
+The table below presents descriptive statistics for Age, BMI, Glucose, and Pregnancies in the dataset.
+```{r}
+# Compute summary statistics
+desc_stats <- diabetes %>%
+  summarise(
+    Mean_Glucose = mean(Glucose, na.rm = TRUE),
+    Median_Glucose = median(Glucose, na.rm = TRUE),
+    SD_Glucose = sd(Glucose, na.rm = TRUE),
+    Min_Glucose = min(Glucose, na.rm = TRUE),
+    Max_Glucose = max(Glucose, na.rm = TRUE),
+    
+    Mean_Age = mean(Age, na.rm = TRUE),
+    Median_Age = median(Age, na.rm = TRUE),
+    SD_Age = sd(Age, na.rm = TRUE),
+    Min_Age = min(Age, na.rm = TRUE),
+    Max_Age = max(Age, na.rm = TRUE),
+    
+    Mean_BMI = mean(BMI, na.rm = TRUE),
+    Median_BMI = median(BMI, na.rm = TRUE),
+    SD_BMI = sd(BMI, na.rm = TRUE),
+    Min_BMI = min(BMI, na.rm = TRUE),
+    Max_BMI = max(BMI, na.rm = TRUE),
+    
+    Mean_Pregnancies = mean(Pregnancies, na.rm = TRUE),
+    Median_Pregnancies = median(Pregnancies, na.rm = TRUE),
+    SD_Pregnancies = sd(Pregnancies, na.rm = TRUE),
+    Min_Pregnancies = min(Pregnancies, na.rm = TRUE),
+    Max_Pregnancies = max(Pregnancies, na.rm = TRUE)
+  )
+
+# Reshape data to display each variable in a separate row
+desc_stats_long <- desc_stats %>%
+  gather(key = "Statistic", value = "Value") %>%
+  separate(Statistic, into = c("Variable", "Measure"), sep = "_") %>%
+  spread(key = "Measure", value = "Value")
+
+# Display the table with styling
+desc_stats_long %>%
+  kable("html", caption = "Descriptive Statistics of Key Variables") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = F) %>%
+  row_spec(0, background = "yellow")
+```
+
+### Table description (Key findings):
+
+Age: Ranges from 21 to 81 years, with a mean of 33.24.
+BMI: Varies from 0 to 67.1, with a mean of 31.99 (BMI of 0 may indicate missing data).
+Glucose: Spans from 0 to 199, with a mean of 120.89, showing considerable variation.
+Pregnancies: Ranges from 0 to 17, with a mean of 3.85.
+
+
+# Distribution of Blood Glucose Levels
+```{r}
+
+ggplot(diabetes, aes(x=Glucose)) + 
+  geom_histogram(binwidth=10, fill="steelblue", color="black", alpha=0.7) + 
+  labs(title="Distribution of Blood Glucose Levels", x="Glucose Level", y="Frequency")
+
+```
+
+### Description of figure
+The above histogram shows the distribution of blood glucose levels among participants in the study. The data appears to follow a roughly normal distribution, with most values concentrated between 80 and 150. There is a peak around 100-120, indicating that many individuals have glucose levels in this range.The distribution is slightly right-skewed, with some individuals having higher glucose levels up to 200.
+
