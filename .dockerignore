@@ -1,0 +1,7 @@
+# Ignore large or unnecessary directories
+output/
+renv/library/
+.Rproj.user/
+.Rhistory
+.RData
+.DS_Store

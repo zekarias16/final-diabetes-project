@@ -35,3 +35,28 @@ After the command runs, the compiled report will be saved in the `output/` folde
 - **Table generation code**: See `code/01_table.R`
 - **Figure generation code**: See `code/02_plot.R`
 
+## How to Use Docker
+
+### 🐳 Build the Docker Image (for local testing)
+
+If you want to build the image yourself:
+
+```bash
+docker build -t zekarias16/zakfinal:latest .
+``` 
+### Pull the Prebuilt Image from DockerHub
+```bash
+docker pull zekarias16/zakfinal:latest
+```
+### Generate the Report in a Mounted Folder
+
+Make an empty folder named report, then run:
+
+```bash
+docker run --rm -v "$(pwd)/report":/home/project/report zekarias16/zakfinal:latest
+```
+    On Windows Git Bash, use:
+```bash
+docker run --rm -v "/$(pwd)/report":/home/project/report zekarias16/zakfinal:latest
+```
+The compiled `final_report.html` will be saved to your local `report/` folder.
