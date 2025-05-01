@@ -4,14 +4,15 @@ This project analyzes the Pima Indians Diabetes Dataset to explore relationships
 
 
 ## Project Structure
-final-diabetes-project/
-├── code/                # R scripts for tables and plots
-├── data/                # diabetes.csv dataset
-├── output/              # Final report will be saved here
-├── renv/                # R dependency management
-├── final_report.Rmd     # Main R Markdown analysis
-├── Makefile             # Automation for rendering report
-├── README.md            # This file
+
+- `data/`: Contains the `diabetes.csv` dataset
+- `code/`: R scripts for generating the table and figure
+- `output/`: Final compiled report (HTML) will be saved here
+- `final_report.Rmd`: Main R Markdown analysis script
+- `Makefile`: Automates report rendering via `make report`
+- `renv/`: Manages project-specific R package versions
+- `README.md`: Project overview and usage instructions
+
 
 ## How to Generate the Report
 
