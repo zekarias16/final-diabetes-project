@@ -9,17 +9,13 @@ RUN apt-get update && apt-get install -y \
     pandoc \
     && apt-get clean
 
-# Copy only what's needed
+# Copy only what's needed for renv restore
 COPY renv.lock renv.lock
 COPY renv/activate.R renv/activate.R
 
-
-# Restore renv packages, including critical ones
-
-RUN Rscript -e "install.packages(c('rmarkdown', 'renv', 'kableExtra', 'svglite'))" \
-    && Rscript -e "renv::restore()" # changed order
-
-
+# Restore renv packages
+RUN Rscript -e "install.packages('renv')" && \
+    Rscript -e "renv::restore()"
 
 # Copy the rest of the project
 COPY . /home/project/

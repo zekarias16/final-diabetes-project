@@ -4,7 +4,8 @@ install:
 	Rscript -e "renv::restore()"
 
 report:
-	Rscript -e "rmarkdown::render('final_report.Rmd', output_dir = 'output')"
+	Rscript code/render_report.R
 	
 docker-run:
-	docker run --rm -v "/$(pwd)/report":/home/project/report zekarias16/zakfinal:latest
+	docker run --rm -v "/$(shell pwd)/report":/home/project/report zekarias16/zakfinal:latest
+
